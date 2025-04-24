@@ -2,7 +2,14 @@
 
 ## Objective
 
-Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS components and open standards such as SQL and Terraform. This project serves both as a university coursework and a production-ready portfolio project.
+Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS components. This project serves both as a university coursework and a pet-project.
+
+## Task
+- Identifying a domain of interest.
+- Creating multiple `.csv` datasets related to the chosen domain.
+- Ingesting the datasets into an OLTP database using ETL/ELT processes.
+- Transfe the data from OLTP into a DWH using ETL/ELT for further querying.
+- Performing data analysis and generating visualizations based on the data from DWH.
 
 ## Stack
 
@@ -13,19 +20,27 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 - **GitHub** – Project repository and version control
 
 ## Infrastrucutre Diagram
-![изображение](https://github.com/user-attachments/assets/0023e4b6-8a1e-400c-b3dc-9840f8f9129b)
+![изображение](https://github.com/user-attachments/assets/44120ea9-de60-42c1-b426-b43dd492dd06)
 
 ## Repository Structure
 
 ```plaintext
 .
-├── terraform/              
+├── terraform/
+│   ├── main.tf
+│   ├── iam.tf
+│   ├── quicksight.tf
+│   ├── variables.tf
+│   ├── outputs.tf
+│   ├── providers.tf    
+│   ├── backend.tf               
 │   └── modules/
 │       ├── s3/
+│       ├── vpc/
+│       ├── ec2-basion/
 │       ├── rds/
 │       ├── redshift/
-│       ├── lambda/
-│       └── iam/
+│       └── lambda/
 ├── sql/                   
 │   ├── rds_schema.sql
 │   ├── redshift_schema.sql
