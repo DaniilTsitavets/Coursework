@@ -30,6 +30,10 @@ resource "aws_subnet" "private_coursework_subnet" {
 resource "aws_db_subnet_group" "db_subnet_group" {
   name       = "rds-subnet-group"
   subnet_ids = [for subnet in aws_subnet.private_coursework_subnet : subnet.id]
+
+  tags = {
+    Name = "${var.project_name}-rds-subnet-group"
+  }
 }
 
 resource "aws_internet_gateway" "igw" {
