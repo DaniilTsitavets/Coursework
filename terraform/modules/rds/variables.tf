@@ -5,7 +5,7 @@ variable "allocated_storage" {
 
 variable "db_name" {
   type    = string
-  default = "oltp-db"
+  default = "OLTPdb"
 }
 
 variable "engine" {
@@ -15,7 +15,7 @@ variable "engine" {
 
 variable "engine_version" {
   type    = string
-  default = ""
+  default = "17.2"
 }
 
 variable "instance_class" {
@@ -25,11 +25,25 @@ variable "instance_class" {
 
 variable "db_username" {
   type    = string
-  default = "user"
+  default = "postgres"
 }
 
 variable "db_password" {
   type    = string
-  default = "password"
+  default = "mypostgrespassword"
+}
+#
+# variable "db_subnet_group_name" {
+#   type = string
+#   default = null
+# }
+
+variable "project_name" {
+  type    = string
+  default = "coursework"
 }
 
+variable "vpc_id" {
+  type    = string
+  default = null
+}

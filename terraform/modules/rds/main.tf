@@ -1,4 +1,4 @@
-resource "aws_db_instance" "oltp-db" {
+resource "aws_db_instance" "OLTPdb" {
   allocated_storage    = var.allocated_storage
   db_name              = var.db_name
   engine               = var.engine
@@ -6,4 +6,35 @@ resource "aws_db_instance" "oltp-db" {
   instance_class       = var.instance_class
   username             = var.db_username
   password             = var.db_password
+  # db_subnet_group_name = var.db_subnet_group_name
+  vpc_security_group_ids = [aws_security_group.rds_security_group.id]
+
+  publicly_accessible = true
+  skip_final_snapshot = true
+  storage_encrypted   = true
+  apply_immediately = true
+
+  tags = {
+    Name = "${var.project_name}-rds-instance"
+  }
+}
+
+resource "aws_security_group" "rds_security_group" {
+  name        = "${var.project_name}-rds-sg"
+  description = "Allow database access"
+  vpc_id      = var.vpc_id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
+  security_group_id = aws_security_group.rds_security_group.id
+  cidr_ipv4 = "0.0.0.0/0" //FIXME:should allow ONLY bastion host IP
+  from_port         = 5432 //FIXME: move to variables.tf
+  ip_protocol       = "tcp"
+  to_port           = 5432
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  security_group_id = aws_security_group.rds_security_group.id
+  cidr_ipv4         = "0.0.0.0/0" //FIXME: move to variables.tf
+  ip_protocol       = "-1"
 }
