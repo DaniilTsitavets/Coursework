@@ -12,3 +12,6 @@ module "s3" {
   source        = "./modules/s3"
   # s3_bucket_name = "coursework-data-bucket"
 }
+module "vpc" {
+  source = "./modules/vpc"
+}
