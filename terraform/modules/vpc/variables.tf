@@ -4,21 +4,21 @@ variable "vpc_cidr" {
 }
 
 variable "project_name" {
-  type = string
+  type    = string
   default = "coursework"
 }
 
 variable "public_subnet_cidr" {
-type = list(string)
-default = ["10.0.1.0/24"]
+  type = list(string)
+  default = ["10.0.1.0/24"]
 }
 
 variable "private_subnet_cidr" {
   type = list(string)
-  default = ["10.0.3.0/24", "10.0.4.0/24"] //FIXME: delete one cidr, caz not free tier
+  default = ["10.0.3.0/24", "10.0.4.0/24"]
 }
 
 variable "subnet_az" {
   type = list(string)
-  default = ["eu-north-1a", "eu-north-1b"] //FIXME: delete one az, caz not free tier
+  default = ["eu-north-1a", "eu-north-1b"]
 }
