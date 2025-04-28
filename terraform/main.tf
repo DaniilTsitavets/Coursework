@@ -15,3 +15,7 @@ module "s3" {
 module "vpc" {
   source = "./modules/vpc"
 }
+module "ec2-bastion" {
+  source = "./modules/ec2-bastion"
+  vpc_id = module.vpc.vpc_id
+}
