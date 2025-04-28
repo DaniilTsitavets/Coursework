@@ -6,10 +6,10 @@ resource "aws_db_instance" "OLTPdb" {
   instance_class       = var.instance_class
   username             = var.db_username
   password             = var.db_password
-  # db_subnet_group_name = var.db_subnet_group_name
+  db_subnet_group_name = var.db_subnet_group_name
   vpc_security_group_ids = [aws_security_group.rds_security_group.id]
 
-  publicly_accessible = true
+  publicly_accessible = false
   skip_final_snapshot = true
   storage_encrypted   = true
   apply_immediately = true
@@ -25,7 +25,7 @@ resource "aws_security_group" "rds_security_group" {
   vpc_id      = var.vpc_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "allow_tcp_5432" {
   security_group_id = aws_security_group.rds_security_group.id
   cidr_ipv4 = "0.0.0.0/0" //FIXME:should allow ONLY bastion host IP
   from_port         = 5432 //FIXME: move to variables.tf

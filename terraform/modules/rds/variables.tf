@@ -32,11 +32,11 @@ variable "db_password" {
   type    = string
   default = "mypostgrespassword"
 }
-#
-# variable "db_subnet_group_name" {
-#   type = string
-#   default = null
-# }
+
+variable "db_subnet_group_name" {
+  type = string
+  default = null
+}
 
 variable "project_name" {
   type    = string
