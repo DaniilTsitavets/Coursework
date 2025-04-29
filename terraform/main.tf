@@ -10,14 +10,20 @@ terraform {
 
 module "s3" {
   source = "./modules/s3"
-  # s3_bucket_name = "coursework-data-bucket"
 }
+
 module "vpc" {
   source = "./modules/vpc"
 }
+ 
+module "ec2-bastion" {
+  source           = "./modules/ec2-bastion"
+  vpc_id           = module.vpc.vpc_id
+  public_subnet_id = module.vpc.public_subnet_ids[0]
+}
+    
 module "rds" {
   source = "./modules/rds"
-  #have to take db_subnet_group_name AND vpc_id from vpc module
   vpc_id = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
 }

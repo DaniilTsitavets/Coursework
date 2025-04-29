@@ -30,3 +30,6 @@ output "db_password" {
   value = module.rds.db_password
   sensitive = true
 }
+ output "bastion_public_ip" {   
+  value = module.ec2-bastion.instance_public_ip
+}
