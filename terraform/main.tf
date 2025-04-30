@@ -26,4 +26,5 @@ module "rds" {
   source = "./modules/rds"
   vpc_id = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
+  cidr_ipv4_ingress = module.ec2-bastion.instance_public_ip
 }

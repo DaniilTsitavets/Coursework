@@ -12,7 +12,7 @@ resource "aws_db_instance" "OLTPdb" {
   publicly_accessible = false
   skip_final_snapshot = true
   storage_encrypted   = true
-  apply_immediately = true
+  apply_immediately   = true
 
   tags = {
     Name = "${var.project_name}-rds-instance"
@@ -27,14 +27,14 @@ resource "aws_security_group" "rds_security_group" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_tcp_5432" {
   security_group_id = aws_security_group.rds_security_group.id
-  cidr_ipv4 = "0.0.0.0/0" //FIXME:should allow ONLY bastion host IP
-  from_port         = 5432 //FIXME: move to variables.tf
+  cidr_ipv4         = var.cidr_ipv4_ingress
+  from_port         = 5432
   ip_protocol       = "tcp"
   to_port           = 5432
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.rds_security_group.id
-  cidr_ipv4         = "0.0.0.0/0" //FIXME: move to variables.tf
+  cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
