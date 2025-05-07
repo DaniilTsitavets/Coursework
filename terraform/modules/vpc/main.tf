@@ -62,3 +62,28 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public_coursework_subnet[count.index].id
   route_table_id = aws_route_table.public.id
 }
+
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.coursework_vpc.id
+
+  tags = {
+    Name = "${var.project_name}-private-rt"
+  }
+}
+
+resource "aws_route_table_association" "private" {
+  count = length(aws_subnet.private_coursework_subnet)
+  subnet_id      = aws_subnet.private_coursework_subnet[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
+resource "aws_vpc_endpoint" "s3_gateway" {
+  vpc_id            = aws_vpc.coursework_vpc.id
+  service_name      = "com.amazonaws.${var.region}.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids = [aws_route_table.private.id]
+
+  tags = {
+    Name = "${var.project_name}-s3-endpoint"
+  }
+}

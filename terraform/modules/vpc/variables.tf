@@ -22,3 +22,7 @@ variable "subnet_az" {
   type = list(string)
   default = ["eu-north-1a", "eu-north-1b"]
 }
+variable "region" {
+  type = string
+  default = "eu-north-1"
+}
