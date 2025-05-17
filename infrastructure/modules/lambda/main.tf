@@ -9,6 +9,10 @@ resource "aws_lambda_function" "lambda" {
     subnet_ids = var.private_subnet_ids
     security_group_ids = [aws_security_group.lambda_sg.id] // SG для лямбды
   }
+
+  environment {
+    variables = var.env_variables
+  }
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
