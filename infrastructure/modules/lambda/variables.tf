@@ -1,9 +1,10 @@
 variable "function_name" {
   type = string
+  default = "lambda-to-oltp-test"
 }
 variable "handler" {
   type    = string
-  default = "index.handler" //<file_name>.<function_name>
+  default = "lambda_function.handler" //<file_name>.<function_name>
 }
 variable "runtime" {
   type    = string
@@ -20,6 +21,13 @@ variable "policy_arns" {
 variable "private_subnet_ids" {
   type = list(string)
 }
+
 variable "vpc_id" {
   type = string
+}
+
+variable "env_variables" {
+  description = "Map of environment variables for the Lambda function"
+  type        = map(string)
+  default     = {}
 }
