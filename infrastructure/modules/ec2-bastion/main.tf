@@ -4,7 +4,7 @@ resource "aws_instance" "ec2-bastion-host" {
   subnet_id                   = var.public_subnet_id
   vpc_security_group_ids = [aws_security_group.bastion-sg.id]
   key_name                    = var.key_name
-  associate_public_ip_address = false
+  associate_public_ip_address = true
 
   tags = {
     Name = "${var.project_name}-bastion"
@@ -32,8 +32,4 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   security_group_id = aws_security_group.bastion-sg.id
   cidr_ipv4         = var.cidr_ipv4_egress
   ip_protocol       = "-1"
-}
-
-resource "aws_eip" "bastion_eip" {
-  instance = aws_instance.ec2-bastion-host.id
 }
