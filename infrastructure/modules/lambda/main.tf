@@ -4,6 +4,7 @@ resource "aws_lambda_function" "lambda" {
   runtime       = var.runtime
   filename = var.filename//must be defined
   role          = aws_iam_role.lambda_exec_role.arn
+  timeout       = "10"
 
   vpc_config {
     subnet_ids = var.private_subnet_ids
@@ -13,6 +14,10 @@ resource "aws_lambda_function" "lambda" {
   environment {
     variables = var.env_variables
   }
+
+  layers = [
+    "arn:aws:lambda:eu-north-1:913524929706:layer:psycopg2-py311:1"
+  ]
 }
 
 resource "aws_iam_role" "lambda_exec_role" {
