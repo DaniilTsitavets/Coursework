@@ -1,6 +1,6 @@
 variable "function_name" {
   type = string
-  default = "lambda-to-oltp-test"
+  default = "lambda-to-oltp"
 }
 variable "handler" {
   type    = string
@@ -8,7 +8,7 @@ variable "handler" {
 }
 variable "runtime" {
   type    = string
-  default = "python3.12"
+  default = "python3.11"
 }
 variable "filename" {
   type = string
