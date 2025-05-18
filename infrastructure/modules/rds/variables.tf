@@ -52,3 +52,6 @@ variable "cidr_ipv4_ingress" {
   type    = string
   default = null
 }
+variable "lambda_sg" {
+  type = string
+}
