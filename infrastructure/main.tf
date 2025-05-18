@@ -27,26 +27,27 @@ module "rds" {
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
   cidr_ipv4_ingress    = module.ec2-bastion.instance_private_ip
+  lambda_sg = module.lambda_to_oltp.lambda_sg
 }
 
-# module "lambda_to_oltp" {
-#   source             = "./modules/lambda"
-#   filename           = "./../build/lambda_to_oltp.zip"
-#   function_name      = "lambda-to-oltp"
-#   private_subnet_ids = module.vpc.private_subnet_ids
-#   vpc_id             = module.vpc.vpc_id
-#   policy_arns = [
-#   "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-#   "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
-#   "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
-#   ]
-#
-#   env_variables = {
-#     DB_HOST     = module.rds.db_endpoint
-#     DB_NAME     = module.rds.db_name
-#     DB_USER     = module.rds.db_username
-#     DB_PASSWORD = module.rds.db_password
-#     S3_BUCKET   = module.s3.bucket_name
-#     S3_KEY      = "/insert_data.sql"
-#   }
-# }
+module "lambda_to_oltp" {
+  source             = "./modules/lambda"
+  filename           = "./../build/lambda_to_oltp.zip"
+  function_name      = "lambda-to-oltp"
+  private_subnet_ids = module.vpc.private_subnet_ids
+  vpc_id             = module.vpc.vpc_id
+  policy_arns = [
+  "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+  "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess",
+  "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+  ]
+
+  env_variables = {
+    DB_HOST     = module.rds.db_address
+    DB_NAME     = module.rds.db_name
+    DB_USER     = module.rds.db_username
+    DB_PASSWORD = module.rds.db_password
+    S3_BUCKET   = module.s3.bucket_name
+    S3_KEY      = "etl-scripts/insert_data.sql"
+  }
+}
