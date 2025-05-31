@@ -12,7 +12,7 @@ output "db_username" {
 
 output "db_password" {
   value = aws_db_instance.OLTPdb.password
-  sensitive = true
+  # sensitive = true
 }
 output "db_address" {
   value = aws_db_instance.OLTPdb.address
