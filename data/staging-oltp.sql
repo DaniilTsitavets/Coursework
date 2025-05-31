@@ -1,0 +1,21 @@
+CREATE TEMP TABLE staging_data (
+    title VARCHAR(160),
+    artist_name VARCHAR(120),
+    first_name VARCHAR(40),
+    last_name VARCHAR(20),
+    address VARCHAR(70),
+    city VARCHAR(40),
+    country VARCHAR(40),
+    phone VARCHAR(24),
+    email VARCHAR(60),
+    genre_name VARCHAR(120),
+    invoice_date TIMESTAMP,
+    billing_address VARCHAR(70),
+    billing_city VARCHAR(40),
+    billing_country VARCHAR(40),
+    total NUMERIC(10,2),
+    track_name VARCHAR(200),
+    media_type_name VARCHAR(120),
+    unit_price NUMERIC(10,2),
+    quantity INT
+);
