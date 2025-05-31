@@ -35,6 +35,7 @@ def handler(event, context):
             user=db_user,
             password=db_password
         )
+
         cur = conn.cursor()
 
         cur.execute(init_script)

@@ -7,7 +7,6 @@ resource "random_string" "suffix" {
 
 resource "aws_s3_bucket" "s3-coursework-bucket" {
   bucket = var.s3_bucket_name != null ? var.s3_bucket_name : "coursework-bucket-${random_string.suffix.result}"
-
 }
 
 resource "aws_s3_object" "etl1" {
