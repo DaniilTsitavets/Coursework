@@ -55,3 +55,20 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 ├── diagrams/               
 │   └── architecture.png
 └── README.md              
+```
+
+## 🗃️ Database Design
+
+The OLTP database used in this project is based on the **Chinook** dataset — a sample database modeled after a digital media store.
+
+To simplify the scope of coursework and reduce unnecessary complexity in the ETL process, the following adjustments were made:
+
+- ❌ **Removed tables**: `Employee`, `Playlist`, and `PlaylistTrack`
+- ❌ **Excluded attributes**: Several less relevant columns were removed from the remaining tables
+
+The final schema retains full normalization (3NF) and includes 8 core tables:  
+`Artist`, `Album`, `Track`, `Genre`, `MediaType`, `Customer`, `Invoice`, and `InvoiceLine`.
+
+Below is a screenshot of the original schema with the excluded elements crossed out:
+
+![изображение](https://github.com/user-attachments/assets/73c13c9e-393a-4897-a041-0ca6b0cf5058)
