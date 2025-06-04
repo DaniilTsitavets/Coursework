@@ -14,13 +14,14 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 ## Stack
 
 - **Terraform** – Infrastructure as Code (IaC)
-- **AWS** – S3, Lambda, RDS (OLTP and OLAP), IAM
-- **Amazon QuickSight** – Visualization (BI)
+- **AWS** – S3, Lambda, RDS (OLTP and OLAP), IAM, Amazon QuickSight
 - **SQL** – For schema creation and ETL logic
 - **GitHub** – Project repository and version control
 
 ## Infrastrucutre Diagram
-![изображение](https://github.com/user-attachments/assets/44120ea9-de60-42c1-b426-b43dd492dd06)
+![изображение](https://github.com/user-attachments/assets/b3567f85-28cb-4296-9ef9-89c0633d319a)
+
+
 
 ## Repository Structure
 
