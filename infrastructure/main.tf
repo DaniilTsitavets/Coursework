@@ -22,12 +22,12 @@ module "ec2-bastion" {
   public_subnet_id = module.vpc.public_subnet_ids[0]
 }
 
-module "rds" {
-  source               = "./modules/rds"
+module "rds_oltp" {
+  source               = "./modules/rds_oltp"
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
-  cidr_ipv4_ingress    = module.ec2-bastion.instance_private_ip
-  lambda_sg            = module.lambda_to_oltp.lambda_sg
+  bastion_sg           = module.ec2-bastion.bastion_sg
+  lambda_sg_id         = module.lambda_to_oltp.lambda_sg
 }
 
 module "lambda_to_oltp" {
@@ -43,13 +43,13 @@ module "lambda_to_oltp" {
   ]
 
   env_variables = {
-    DB_HOST     = module.rds.db_address
-    DB_NAME     = module.rds.db_name
-    DB_USER     = module.rds.db_username
-    DB_PASSWORD = module.rds.db_password
-    S3_BUCKET   = module.s3.bucket_name
-    ETL_KEY     = module.s3.s3_key_oltp_etl
-    CSV_KEY     = module.s3.s3_key_test_csv
+    DB_HOST         = module.rds_oltp.db_address
+    DB_NAME         = module.rds_oltp.db_name
+    DB_USER         = module.rds_oltp.db_username
+    DB_PASSWORD     = module.rds_oltp.db_password
+    S3_BUCKET       = module.s3.bucket_name
+    ETL_KEY         = module.s3.s3_key_oltp_etl
+    CSV_KEY         = module.s3.s3_key_test_csv
     INIT_TABLES_KEY = module.s3.s3_key_init_tables
   }
 }
