@@ -8,7 +8,7 @@ resource "aws_lambda_function" "lambda" {
 
   vpc_config {
     subnet_ids = var.private_subnet_ids
-    security_group_ids = [aws_security_group.lambda_sg.id] // SG для лямбды
+    security_group_ids = [aws_security_group.lambda_sg.id]
   }
 
   environment {
@@ -43,7 +43,7 @@ resource "aws_iam_role_policy_attachment" "policies" {
 }
 
 resource "aws_security_group" "lambda_sg" {
-  name        = "coursework-lambda-sg"
+  name        = "coursework-${var.function_name}-sg"
   description = "Security Group for Lambda"
   vpc_id      = var.vpc_id
 
@@ -55,6 +55,6 @@ resource "aws_security_group" "lambda_sg" {
   }
 
   tags = {
-    Name = "coursework-lambda-sg"
+    Name = "coursework-${var.function_name}-sg"
   }
 }
