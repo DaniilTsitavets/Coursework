@@ -9,3 +9,7 @@ output "instance_public_ip" {
 output "ssh_connect_ip" {
   value = aws_instance.ec2-bastion-host.public_ip
 }
+
+output "bastion_sg" {
+  value = aws_security_group.bastion-sg.id
+}

@@ -35,7 +35,6 @@ variable "db_password" {
 
 variable "db_subnet_group_name" {
   type    = string
-  default = null
 }
 
 variable "project_name" {
@@ -45,13 +44,12 @@ variable "project_name" {
 
 variable "vpc_id" {
   type    = string
-  default = null
 }
 
-variable "cidr_ipv4_ingress" {
-  type    = string
-  default = null
+variable "lambda_sg_id" {
+  type = string
 }
-variable "lambda_sg" {
+
+variable "bastion_sg" {
   type = string
 }
