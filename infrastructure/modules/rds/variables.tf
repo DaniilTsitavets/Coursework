@@ -46,8 +46,8 @@ variable "vpc_id" {
   type    = string
 }
 
-variable "lambda_sg_id" {
-  type = string
+variable "lambda_sg_ids" {
+  type = list(string)
 }
 
 variable "bastion_sg" {
