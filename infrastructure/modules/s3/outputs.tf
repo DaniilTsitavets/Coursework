@@ -11,6 +11,14 @@ output "s3_key_test_csv" {
   value = aws_s3_object.test-csv.key
 }
 
-output "s3_key_init_tables" {
-  value = aws_s3_object.init-tables.key
+output "s3_key_init_oltp_tables" {
+  value = aws_s3_object.init-oltp-tables
+}
+
+output "s3_key_olap_etl" {
+  value = aws_s3_object.etl2.key
+}
+
+output "s3_key_init_olap_tables" {
+  value = aws_s3_object.init-olap-tables
 }
