@@ -23,11 +23,11 @@ module "ec2-bastion" {
 }
 
 module "rds_oltp" {
-  source               = "./modules/rds_oltp"
+  source               = "modules/rds"
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
   bastion_sg           = module.ec2-bastion.bastion_sg
-  lambda_sg_id         = module.lambda_to_oltp.lambda_sg
+  lambda_sg_ids        = [module.lambda_to_oltp] //TODO do not forget to add lambda_to_olap id
 }
 
 module "lambda_to_oltp" {
