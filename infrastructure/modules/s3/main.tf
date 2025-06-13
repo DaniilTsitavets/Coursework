@@ -35,7 +35,7 @@ resource "aws_s3_object" "etl2" {
   bucket       = aws_s3_bucket.s3-coursework-bucket.bucket
   key          = "etl2/etl2.sql"
   source       = "../sql/etl2.sql"
-  etag = filemd5("../sql/etl2.sql")
+  # etag = filemd5("../sql/etl2.sql")
 }
 
 resource "aws_s3_object" "init-olap-tables" {
