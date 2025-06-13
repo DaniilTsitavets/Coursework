@@ -98,11 +98,6 @@ module "lambda_to_olap" {
   ]
 
   env_variables = {
-    OLTP_HOST     = module.rds_oltp.db_address
-    OLTP_NAME     = module.rds_oltp.db_name
-    OLTP_USER     = module.rds_oltp.db_username
-    OLTP_PASSWORD = module.rds_oltp.db_password
-
     OLAP_HOST     = module.rds_olap.db_address
     OLAP_NAME     = module.rds_olap.db_name
     OLAP_USER     = module.rds_olap.db_username
