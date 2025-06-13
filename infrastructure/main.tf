@@ -8,8 +8,21 @@ terraform {
   required_version = ">= 1.4.0"
 }
 
+resource "local_file" "etl2" {
+  content = templatefile("${path.module}/etl2.sql.tpl", {
+    host     = module.rds_oltp.db_address
+    db_name  = module.rds_oltp.db_name
+    user     = module.rds_oltp.db_username
+    password = module.rds_oltp.db_password
+  })
+  filename = "${path.module}/../sql/etl2.sql"
+
+  depends_on = [module.rds_oltp]
+}
+
 module "s3" {
   source = "./modules/s3"
+  depends_on = [local_file.etl2]
 }
 
 module "vpc" {
