@@ -23,11 +23,17 @@ module "ec2-bastion" {
 }
 
 module "rds_oltp" {
-  source               = "modules/rds"
+  source               = "./modules/rds"
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
   bastion_sg           = module.ec2-bastion.bastion_sg
-  lambda_sg_ids = [module.lambda_to_oltp.lambda_sg, module.lambda_to_olap.lambda_sg]
+  lambda_sg_map = {
+    lambda_oltp = module.lambda_to_oltp.lambda_sg
+    lambda_olap = module.lambda_to_olap.lambda_sg
+  }
+  rds_sg_map = {
+    rds_olap_sg_id = module.rds_olap.rds_oltp_sg_id
+  }
 }
 
 module "lambda_to_oltp" {
@@ -60,7 +66,10 @@ module "rds_olap" {
   vpc_id               = module.vpc.vpc_id
   db_subnet_group_name = module.vpc.db_subnet_group_name
   bastion_sg           = module.ec2-bastion.bastion_sg
-  lambda_sg_ids = [module.lambda_to_olap.lambda_sg]
+  lambda_sg_map = {
+    lambda_olap = module.lambda_to_olap.lambda_sg
+  }
+  rds_sg_map = {}
 }
 
 module "lambda_to_olap" {

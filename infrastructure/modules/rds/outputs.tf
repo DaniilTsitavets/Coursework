@@ -17,3 +17,7 @@ output "db_password" {
 output "db_address" {
   value = aws_db_instance.db.address
 }
+
+output "rds_oltp_sg_id" {
+  value = aws_security_group.rds_security_group.id
+}

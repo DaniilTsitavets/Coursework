@@ -12,7 +12,7 @@ output "s3_key_test_csv" {
 }
 
 output "s3_key_init_oltp_tables" {
-  value = aws_s3_object.init-oltp-tables
+  value = aws_s3_object.init-oltp-tables.key
 }
 
 output "s3_key_olap_etl" {
@@ -20,5 +20,5 @@ output "s3_key_olap_etl" {
 }
 
 output "s3_key_init_olap_tables" {
-  value = aws_s3_object.init-olap-tables
+  value = aws_s3_object.init-olap-tables.key
 }

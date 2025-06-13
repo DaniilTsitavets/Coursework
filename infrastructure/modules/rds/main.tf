@@ -20,9 +20,13 @@ resource "aws_db_instance" "db" {
 }
 
 resource "aws_security_group" "rds_security_group" {
-  name        = "${var.project_name}-rds-sg"
+  name        = "${var.project_name}-rds-${var.db_name}-sg"
   description = "Allow database access"
   vpc_id      = var.vpc_id
+
+  tags = {
+    Name = "rds-${var.db_name}-sg"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_bastion_connection" {
@@ -34,12 +38,22 @@ resource "aws_vpc_security_group_ingress_rule" "allow_bastion_connection" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_lambda_traffic" {
-  for_each = toset(var.lambda_sg_ids)
+  for_each = var.lambda_sg_map
 
   security_group_id            = aws_security_group.rds_security_group.id
   from_port                    = 5432
-  ip_protocol                  = "tcp"
   to_port                      = 5432
+  ip_protocol                  = "tcp"
+  referenced_security_group_id = each.value
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_other_db_traffic" {
+  for_each = var.rds_sg_map
+
+  security_group_id            = aws_security_group.rds_security_group.id
+  from_port                    = 5432
+  to_port                      = 5432
+  ip_protocol                  = "tcp"
   referenced_security_group_id = each.value
 }
 

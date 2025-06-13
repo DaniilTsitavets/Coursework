@@ -46,10 +46,15 @@ variable "vpc_id" {
   type    = string
 }
 
-variable "lambda_sg_ids" {
-  type = list(string)
+variable "lambda_sg_map" {
+  type = map(string)
+  description = "Map of Lambda security group identifiers"
 }
 
 variable "bastion_sg" {
   type = string
+}
+
+variable "rds_sg_map" {
+  type = map(string)
 }
