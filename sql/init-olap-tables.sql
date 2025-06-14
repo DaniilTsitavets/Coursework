@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS dim_time;
 DROP TABLE IF EXISTS dim_track;
 DROP TABLE IF EXISTS dim_customer;
 CREATE EXTENSION IF NOT EXISTS dblink;
--- Dimension: Customer (SCD Type 2)
+
 -- Dimension: Customer (SCD Type 2)
 CREATE TABLE IF NOT EXISTS dim_customer (
   customer_sk INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -32,7 +32,6 @@ CREATE TABLE dim_track (
   unit_price NUMERIC(10,2)
 );
 
--- 🔐 Уникальность по track_id и track_name
 ALTER TABLE dim_track
 ADD CONSTRAINT uq_dim_track_id_name UNIQUE (track_id, track_name);
 
@@ -46,7 +45,6 @@ CREATE TABLE dim_time (
   year INT
 );
 
--- 🔐 Уникальность по дате
 ALTER TABLE dim_time
 ADD CONSTRAINT uq_dim_time_date UNIQUE (date);
 
