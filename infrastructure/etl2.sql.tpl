@@ -34,7 +34,6 @@ FROM changed_customers cc
 WHERE dim_customer.customer_id = cc.customer_id
   AND dim_customer.is_current = true;
 
--- Вставляем новые записи для изменившихся и новых клиентов
 WITH oltp_customers AS (
   SELECT *
   FROM dblink('oltp', 'SELECT customer_id, first_name, last_name, city, country, email FROM customer')
@@ -66,7 +65,6 @@ SELECT customer_id, first_name, last_name, city, country, email,
        current_date, NULL, true
 FROM changed_customers;
 
--- Загрузка dim_track
 WITH oltp_tracks AS (
   SELECT *
   FROM dblink('oltp', $$
@@ -104,7 +102,6 @@ SELECT date, day, month, quarter, year
 FROM normalized_time
 ON CONFLICT (date) DO NOTHING;
 
--- Загрузка fact_sales
 WITH invoice_lines AS (
   SELECT *
   FROM dblink('oltp', $$
@@ -138,7 +135,6 @@ WHERE NOT EXISTS (
     AND fs.total = enriched.total
 );
 
--- Загрузка fact_invoice_summary
 WITH invoices AS (
   SELECT *
   FROM dblink('oltp', $$
@@ -167,7 +163,6 @@ SET customer_sk = EXCLUDED.customer_sk,
     total_amount = EXCLUDED.total_amount,
     total_items = EXCLUDED.total_items;
 
--- Загрузка bridge_invoice_track
 WITH invoice_lines AS (
   SELECT *
   FROM dblink('oltp', 'SELECT invoice_id, track_id, quantity FROM invoice_line')
