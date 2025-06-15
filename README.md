@@ -1,5 +1,9 @@
 # Coursework
 
+> ⚠️ **Disclaimer:**  
+> This repository is not recommended for use in academic or production environments.  
+> It contains several bad practices used solely to meet coursework constraints and work within the AWS Free Tier limits.  
+
 ## Objective
 
 Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS components. This project serves both as a university coursework and a pet-project.
@@ -29,10 +33,9 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 .
 ├── terraform/
 │   ├── main.tf
-│   ├── quicksight.tf
+│   ├── etl2.sql.tpl
 │   ├── variables.tf
 │   ├── outputs.tf
-│   ├── backend.tf               
 │   └── modules/
 │       ├── s3/
 │       ├── vpc/
@@ -41,10 +44,15 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 │       ├── rds_olap/
 │       └── lambda/
 ├── sql/                   
-│   ├── rds_schema.sql
-│   ├── redshift_schema.sql
-│   ├── elt_csv_to_oltp.sql
-│   └── etl_oltp_to_olap.sql
+│   ├── init-olap-tables.sql
+│   ├── init-oltp-tables.sql
+│   ├── etl1.sql
+│   ├── to_show_etl2.sql
+│   └── selects
+│       ├── olap/
+│       │   └── selects.sql
+│       └── oltp/
+│           └── selects.sql
 ├── lambda/                 
 │   ├── lambda-to-oltp/
 │   │   └── lambda_function.py
@@ -52,23 +60,74 @@ Design and deploy a cloud-native ETL/ELT pipeline using only free-tier AWS compo
 │       └── lambda_function.py
 ├── data/                   
 │   └── *.csv
-├── diagrams/               
-│   └── architecture.png
 └── README.md              
 ```
 
 ## 🗃️ Database Design
 
-The OLTP database used in this project is based on the **Chinook** dataset — a sample database modeled after a digital media store.
+### OLTP Schema (Normalized)
 
-To simplify the scope of coursework and reduce unnecessary complexity in the ETL process, the following adjustments were made:
+The OLTP database is based on a simplified version of the **Chinook** schema, fully normalized (3NF), and designed for efficient transactional operations.
 
-- ❌ **Removed tables**: `Employee`, `Playlist`, and `PlaylistTrack`
-- ❌ **Excluded attributes**: Several less relevant columns were removed from the remaining tables
+**Included Tables:**
 
-The final schema retains full normalization (3NF) and includes 8 core tables:  
-`Artist`, `Album`, `Track`, `Genre`, `MediaType`, `Customer`, `Invoice`, and `InvoiceLine`.
+- `Artist` — stores artist metadata
+- `Album` — each album belongs to one artist
+- `Track` — each track belongs to an album and contains pricing/media info
+- `Genre` — genre classification for tracks
+- `MediaType` — file format metadata
+- `Customer` — customer info (location, contact, etc.)
+- `Invoice` — purchases made by customers
+- `InvoiceLine` — line items per invoice (track purchases)
+![изображение](https://github.com/user-attachments/assets/3f2b6d9d-3997-4365-a5ce-95a3e13bc380)
 
-Below is a screenshot of the original schema with the excluded elements crossed out:
+**Notes:**
 
-![изображение](https://github.com/user-attachments/assets/73c13c9e-393a-4897-a041-0ca6b0cf5058)
+- Some unused tables and attributes were removed to reduce complexity  
+- The schema preserves referential integrity with foreign keys  
+- Suitable for ingestion via CSV and Lambda
+
+---
+
+### OLAP Schema (Dimensional)
+
+For analytical workloads, data is transformed into a **star schema** within the OLAP database. It supports efficient aggregation and filtering for BI tools.
+
+**Fact Tables:**
+
+- `fact_sales` — transactional grain, representing each track sale
+- `fact_invoice_summary` — invoice-level aggregates
+
+**Dimension Tables:**
+
+- `dim_customer` — slowly changing dimension (Type 2)
+- `dim_track` — track details including artist, album, genre
+- `dim_time` — calendar dimension (day, month, quarter, year)
+
+**Bridge Table:**
+
+- `bridge_invoice_track` — resolves many-to-many between `invoice` and `track`
+
+![изображение](https://github.com/user-attachments/assets/db6c9f94-8f4c-484c-994e-562a6ea0b897)
+
+This OLAP schema powers Amazon QuickSight dashboards through custom SQL queries.
+
+
+## Amazon QuickSight Visualizations
+
+This section showcases final visualizations built using **Amazon QuickSight** connected to the **OLAP** database.
+
+> All dashboards use **custom SQL datasets**, include **interactive filters**.
+
+### 1. Most Profitable Artists (2 Years Ago)
+
+![изображение](https://github.com/user-attachments/assets/433739bc-26c6-43f5-8317-017119eb1924)
+
+### 2. Genre-wise Sales (2 Years Ago)
+
+![изображение](https://github.com/user-attachments/assets/404daca7-c2b9-4cb2-8e4e-96bf6c9bf2e0)
+
+### 3. Top 5 Tracks of All Time by Quantity Sold
+
+![изображение](https://github.com/user-attachments/assets/3bcec799-649b-4644-9eea-8cbf6175d69c)
+
