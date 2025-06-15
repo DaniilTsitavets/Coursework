@@ -40,7 +40,8 @@ CREATE TABLE IF NOT EXISTS customer (
     city VARCHAR(40),
     country VARCHAR(40),
     phone VARCHAR(24),
-    email VARCHAR(60) NOT NULL
+    email VARCHAR(60) NOT NULL,
+    CONSTRAINT uq_customer_email_phone UNIQUE (email, phone)
 );
 
 CREATE TABLE IF NOT EXISTS genre (
@@ -73,7 +74,8 @@ CREATE TABLE IF NOT EXISTS invoice (
     billing_city VARCHAR(40),
     billing_country VARCHAR(40),
     total NUMERIC(10,2) NOT NULL,
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    CONSTRAINT uq_invoice_customer_date UNIQUE (customer_id, invoice_date)
 );
 
 CREATE TABLE IF NOT EXISTS invoice_line (
@@ -83,5 +85,6 @@ CREATE TABLE IF NOT EXISTS invoice_line (
     unit_price NUMERIC(10,2) NOT NULL,
     quantity INT NOT NULL,
     FOREIGN KEY (invoice_id) REFERENCES invoice(invoice_id),
-    FOREIGN KEY (track_id) REFERENCES track(track_id)
+    FOREIGN KEY (track_id) REFERENCES track(track_id),
+    CONSTRAINT uq_invoice_line_invoice_track UNIQUE (invoice_id, track_id)
 );
