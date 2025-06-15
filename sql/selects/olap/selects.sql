@@ -1,17 +1,17 @@
- SELECT
-  dc.customer_id,
-  dc.first_name,
-  dc.last_name,
-  SUM(fis.total_amount) AS total_spent,
-  COUNT(fis.invoice_id) AS invoice_count
-FROM fact_invoice_summary fis
-JOIN dim_customer dc ON fis.customer_sk = dc.customer_sk
-WHERE dc.is_current = true
-GROUP BY dc.customer_id, dc.first_name, dc.last_name
-ORDER BY total_spent DESC
+--Какие исполнители были самыми прибыльными в прошлом году (по общей выручке)?
+SELECT
+  dt.year,
+  dtrk.artist_name,
+  SUM(fs.total) AS total_revenue
+FROM fact_sales fs
+JOIN dim_time dt ON fs.time_sk = dt.time_sk
+JOIN dim_track dtrk ON fs.track_sk = dtrk.track_sk
+WHERE dt.year = EXTRACT(YEAR FROM CURRENT_DATE) - 1
+GROUP BY dt.year, dtrk.artist_name
+ORDER BY total_revenue DESC
 LIMIT 10;
 
-
+--инвойсов 2 года назад
 SELECT
   dt.genre_name,
   SUM(fs.total) AS total_sales,
@@ -23,15 +23,14 @@ WHERE dtime.year = EXTRACT(YEAR FROM CURRENT_DATE) - 2
 GROUP BY dt.genre_name
 ORDER BY total_sales DESC;
 
-
+--Топ-5 самых покупаемых треков всех времён (по количеству проданных единиц)
 SELECT
-  dtime.year,
-  dtime.quarter,
-  dc.country,
-  SUM(fs.total) AS total_sales
+  dtrk.track_name,
+  dtrk.artist_name,
+  SUM(fs.quantity) AS total_quantity
 FROM fact_sales fs
-JOIN dim_customer dc ON fs.customer_sk = dc.customer_sk
-JOIN dim_time dtime ON fs.time_sk = dtime.time_sk
-WHERE dc.is_current = true
-GROUP BY dtime.year, dtime.quarter, dc.country
-ORDER BY dtime.year, dtime.quarter, total_sales DESC;
+JOIN dim_track dtrk ON fs.track_sk = dtrk.track_sk
+GROUP BY dtrk.track_name, dtrk.artist_name
+ORDER BY total_quantity DESC
+LIMIT 5;
+
