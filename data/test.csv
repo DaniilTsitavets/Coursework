@@ -1,5 +1,17 @@
 title,artist_name,first_name,last_name,address,city,country,phone,email,genre_name,invoice_date,billing_address,billing_city,billing_country,total,track_name,media_type_name,unit_price,quantity
 "Hybrid Theory","Linkin Park","John","Doe","123 Main St","Los Angeles","USA","555-1234","john.doe@example.com","Rock","2023-01-01 10:00:00","123 Main St","Los Angeles","USA",15.99,"In the End","MP3",0.99,1
 "Meteora","Linkin Park","Jane","Smith","456 Oak Ave","New York","USA","555-5678","jane.smith@example.com","Alternative","2023-02-15 15:30:00","456 Oak Ave","New York","USA",9.99,"Numb","FLAC",1.29,2
-"Minutes to Midnight","Linkin Park","Alice","Johnson","789 Pine Rd","Chicago","USA","555-9012","alice.j@example.com","Pop","2023-03-10 09:45:00","789 Pine Rd","Chicago","USA",12.50,"Shadow of the Day","WAV",1.49,3
-"Minutes to Midnight","Linkin Park","Boris","Johnson","789 Pine Rd","Chicago","USA","576-9623","boris.j@example.com","Pop","2023-03-10 09:45:00","789 Pine Rd","Chicago","USA",12.50,"In the End","WAV",1.49,3
+"21 century","Some Group","Алиса","Johnson","789 Pine Rd","Chicago","USA","554-9012","alice.j@example.com","Pop","2024-03-10 09:45:00","789 Pine Rd","Chicago","USA",12.50,"Shadow of the Day","WAV",1.49,50
+"21 century","Some Group","Alice","Johnson","789 Pine Rd","Chicago","USA","554-9012","alice.j@example.com","Pop","2024-03-10 09:45:00","789 Pine Rd","Chicago","USA",12.50,"Shadow of the Day","WAV",1.49,50
+"Divide","Ed Sheeran","Liam","Miller","101 Elm St","Boston","USA","555-1111","liam.m@example.com","Pop","2023-04-12 11:00:00","101 Elm St","Boston","USA",10.98,"Shape of You","MP3",1.09,2
+"Future Nostalgia","Dua Lipa","Emma","Taylor","202 Birch Rd","Miami","USA","555-2222","emma.t@example.com","Dance","2023-05-20 14:45:00","202 Birch Rd","Miami","USA",5.97,"Levitating","AAC",1.99,3
+"Back in Black","AC/DC","Noah","Anderson","303 Cedar Blvd","Austin","USA","555-3333","noah.a@example.com","Rock","2023-06-05 16:30:00","303 Cedar Blvd","Austin","USA",4.98,"Hells Bells","WAV",2.49,2
+"Lover","Taylor Swift","Olivia","Moore","404 Maple St","Seattle","USA","555-4444","olivia.m@example.com","Pop","2023-07-17 12:00:00","404 Maple St","Seattle","USA",6.98,"The Archer","MP3",3.49,2
+"Random Access Memories","Daft Punk","James","Brown","505 Walnut Ave","Denver","USA","555-5555","james.b@example.com","Electronic","2023-08-23 09:15:00","505 Walnut Ave","Denver","USA",2.99,"Instant Crush","FLAC",2.99,1
+"Currents","Tame Impala","Sophia","Davis","606 Cherry Dr","San Diego","USA","555-6666","sophia.d@example.com","Alternative","2023-09-10 18:20:00","606 Cherry Dr","San Diego","USA",7.50,"Let It Happen","MP3",2.50,3
+"Meteora","Linkin Park","Mason","Wilson","707 Oak Ln","Portland","USA","555-7777","mason.w@example.com","Soul","2023-10-03 13:50:00","707 Oak Ln","Portland","USA",5.00,"Hello","WAV",2.50,2
+"Night Visions","Imagine Dragons","Ava","Martinez","808 Spruce Ct","Dallas","USA","555-8888","ava.m@example.com","Alternative","2023-11-19 20:05:00","808 Spruce Ct","Dallas","USA",3.98,"Radioactive","FLAC",1.99,2
+"A Rush of Blood to the Head","Coldplay","Lucas","Garcia","909 Pine Ave","Atlanta","USA","555-9999","lucas.g@example.com","Rock","2023-12-28 17:30:00","909 Pine Ave","Atlanta","USA",8.97,"The Scientist","AAC",2.99,3
+"The Fame","Lady Gaga","Isabella","Lee","111 Aspen Way","San Jose","USA","555-0000","isabella.l@example.com","Pop","2024-01-15 08:40:00","111 Aspen Way","San Jose","USA",4.47,"Poker Face","MP3",1.49,3
+"The Fame","Lady Gaga","Isabella","Lee","111 Aspen Way","San Jose","USA","555-0000","isabella.l@example.com","Pop","2024-01-15 08:40:00","111 Aspen Way","San Jose","USA",4.47,"Poker Face","MP3",1.49,3
+"Some albm","Some Group","Alice","Johnson","789 Pine Rd","Chicago","USA","554-9012","alice.j@example.com","Pop","2024-12-10 10:45:00","789 Pine Rd","Chicago","USA",12.50,"Shadow of the Day","WAV",1.49,2

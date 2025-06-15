@@ -12,9 +12,9 @@ resource "aws_s3_bucket" "s3-coursework-bucket" {
 //TODO create vars for paths
 resource "aws_s3_object" "etl1" {
   bucket       = aws_s3_bucket.s3-coursework-bucket.bucket
-  key          = "etl1/from-staging-to-main.sql"
-  source       = "../sql/from-staging-to-main.sql"
-  etag = filemd5("../sql/from-staging-to-main.sql")
+  key          = "etl1/etl1.sql"
+  source       = "../sql/etl1.sql"
+  etag = filemd5("../sql/etl1.sql")
 }
 
 resource "aws_s3_object" "test-csv" {
@@ -24,9 +24,23 @@ resource "aws_s3_object" "test-csv" {
   etag = filemd5("../data/test.csv")
 }
 
-resource "aws_s3_object" "init-tables" {
+resource "aws_s3_object" "init-oltp-tables" {
   bucket       = aws_s3_bucket.s3-coursework-bucket.bucket
-  key          = "init/init-tables.sql"
-  source       = "../sql/init-tables.sql"
-  etag = filemd5("../sql/init-tables.sql")
+  key          = "init/init-oltp-tables.sql"
+  source       = "../sql/init-oltp-tables.sql"
+  etag = filemd5("../sql/init-oltp-tables.sql")
+}
+
+resource "aws_s3_object" "etl2" {
+  bucket       = aws_s3_bucket.s3-coursework-bucket.bucket
+  key          = "etl2/etl2.sql"
+  source       = "../sql/etl2.sql"
+  # etag = filemd5("../sql/etl2.sql")
+}
+
+resource "aws_s3_object" "init-olap-tables" {
+  bucket       = aws_s3_bucket.s3-coursework-bucket.bucket
+  key          = "init/init-olap-tables.sql"
+  source       = "../sql/init-olap-tables.sql"
+  etag = filemd5("../sql/init-olap-tables.sql")
 }
